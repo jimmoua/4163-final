@@ -14,10 +14,10 @@ public class Store extends Thread {
   private Location key; // Location of the store
   private int sales = 0;
 
-
   private synchronized void restockShelf() {
     items+=5000;
-    if(items > 20000) items = 20000;
+    if (items > 20000)
+      items = 20000;
   }
 
   final public int getItemStock() {
@@ -30,7 +30,7 @@ public class Store extends Thread {
   }
 
   public static synchronized Store getStore(final Location key) {
-    if(StoreMap.get(key) == null) {
+    if (StoreMap.get(key) == null) {
       StoreMap.put(key, new Store(key));
     }
     return StoreMap.get(key);
@@ -48,7 +48,6 @@ public class Store extends Thread {
 
   public void run() {
     long restockTimer = System.currentTimeMillis();
-    int customersLeft = Main.customerList.size();
     while(!Main.customerList.isEmpty()) {
       final long nowTimer = System.currentTimeMillis();
       if(nowTimer-restockTimer >= 3000L) {
@@ -56,7 +55,6 @@ public class Store extends Thread {
         System.out.printf("Restocking store location at %s...\n", key.toString());
         restockTimer = System.currentTimeMillis();
       }
-      customersLeft = Main.customerList.size();
     }
   }
 }
