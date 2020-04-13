@@ -5,16 +5,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import multiton.Store.*;
 
 public class Main {
-  public static CopyOnWriteArrayList<Customer> customerList = new CopyOnWriteArrayList<Customer>();
+  private static CopyOnWriteArrayList<Customer> customerList = new CopyOnWriteArrayList<Customer>();
+
+  public static synchronized CopyOnWriteArrayList<Customer> getCustomerList() {
+    return customerList;
+  }
+
+  public static volatile int numCustomers = -1;
+
   public static void main(String[] args) {
-    final int numCustomers = 250;
+    new GUI();
+    while(numCustomers < 0);
     for(int i = 0; i < numCustomers; i++) {
       customerList.add(new Customer());
     }
-    while(!customerList.isEmpty());
-    for(Location i : Location.values()) {
-      System.out.printf("Store %s made %d sales.\n", i.toString(), Store.getStore(i).getSales());
+    for(var i : getCustomerList()) {
+      i.start();
     }
-    System.out.println("PROGRAM END");
+    while(!customerList.isEmpty());
   }
 }
