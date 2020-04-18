@@ -1,11 +1,12 @@
 package multiton;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import multiton.Store.*;
 
 public class Main {
-  public static CopyOnWriteArrayList<Customer> customerList = new CopyOnWriteArrayList<Customer>();
+  public static ArrayList<Customer> customerList = new ArrayList<Customer>();
   public static volatile int numCustomers = 0;
 
   public static void main(String[] args) {
@@ -15,8 +16,13 @@ public class Main {
       customerList.add(new Customer());
     }
     while(!customerList.isEmpty()) {
-      for (Customer i : customerList) {
-        i.goShopping();
+      Iterator<Customer> iter = customerList.iterator();
+      while(iter.hasNext()) {
+        Customer c = iter.next();
+        c.goShopping();
+        if(c.didPurchaseSomething()) {
+          iter.remove();
+        }
       }
       try {
         Thread.sleep(700);
@@ -24,5 +30,6 @@ public class Main {
         e.printStackTrace();
       }
     }
+    System.out.printf("Total sales: %d\n", Store.ttl);
   }
 }

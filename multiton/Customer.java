@@ -8,7 +8,13 @@ import multiton.Store.Store;
 
 public class Customer {
 
+  private boolean purchasedSomething;
+  public boolean didPurchaseSomething() {
+    return purchasedSomething;
+  }
+
   public Customer() {
+    purchasedSomething = false;
   }
 
   public void goShopping() {
@@ -22,7 +28,7 @@ public class Customer {
         if(numGen != 1) {
           Store.getStore(i).sellItems(itemsToPurchase);
           GUI.getTField().setText(String.valueOf(Main.customerList.size()-1));
-          Main.customerList.remove(this);
+          purchasedSomething = true;
         }
         return;
       }
