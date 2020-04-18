@@ -2,16 +2,16 @@ package multiton.Store;
 
 // import java.util.HashMap;
 import java.util.HashMap;
-
+import java.lang.Math;
 import multiton.Main;
 
 public class Store implements Runnable {
 
   private Store(final Location key) {
     System.out.printf("A store in %s has been built!\n", key.toString());
-    MAX_STOCK = 50000;
-    RESTOCK_COUNT = 20000;
-    items = RESTOCK_COUNT;
+    maxStock = 50000;
+    restockCount = (int)Math.ceil(maxStock*.35);
+    items = restockCount;
     sales = 0;
     this.key = key;
     Thread storeThread = new Thread(this);
@@ -23,38 +23,36 @@ public class Store implements Runnable {
 
   // Store information
   private int items;
-  private int MAX_STOCK;
-  private int RESTOCK_COUNT;
+  private int maxStock;
+  private int restockCount;;
   private Location key; // Location of the store
   private int sales;
 
   private void restockShelf() {
-    StoreMap.get(key).items+=RESTOCK_COUNT;
-    if(StoreMap.get(key).items > MAX_STOCK) StoreMap.get(key).items = MAX_STOCK;
-    updateStock();
+    items+=restockCount;
+    if(items > maxStock) {
+      items = maxStock;
+    }
+    updateStockGUI();
   }
 
 
   public int getSales() {
-    return StoreMap.get(key).sales;
+    return sales;
   }
 
-  private void updateStock() {
-    GUI.itemStockGUI.forEach((k, v) -> {
-      if(k == key) {
-        v.itemStoreStockTextField.setText(String.format("%d items in stock", items));
-      }
-    });
+  private void updateStockGUI() {
+    GUI.itemStockGUI.get(key).itemStoreStockTextField.setText(String.format("%d items in stock", items));
   }
 
   public int getItemStock() {
-    return StoreMap.get(key).items;
+    return items;
   }
 
   public void sellItems(final int itemCount) {
-    StoreMap.get(key).items-=itemCount;
-    updateStock();
-    StoreMap.get(key).sales++;
+    items-=itemCount;
+    updateStockGUI();
+    sales++;
   }
 
   public static synchronized Store getStore(final Location key) {
