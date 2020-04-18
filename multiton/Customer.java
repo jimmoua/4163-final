@@ -25,7 +25,7 @@ public class Customer {
           ttlPurchased++;
           Store.getStore(i).sellItems(itemsToPurchase);
           System.out.printf("Purchase count: %d\n", purchased);
-          if(purchased >= 10) {
+          if(purchased >= 4) {
             GUI.getTField().setText(String.valueOf(Main.customerList.size()-1));
             Main.customerList.remove(this);
           }

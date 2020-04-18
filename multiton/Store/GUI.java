@@ -38,7 +38,7 @@ public class GUI extends JFrame {
   public static ConcurrentHashMap<Location, Pair> itemStockGUI = new ConcurrentHashMap<Location, Pair>();
   private JButton simulateButton;
   private static JTextField numCustomersTextField;
-  public static synchronized JTextField getTField() {
+  public static JTextField getTField() {
     return numCustomersTextField;
   }
 

@@ -1,21 +1,21 @@
 package multiton.Store;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 
 import multiton.Main;
 
 public class Store extends Thread {
 
   // Static mapping
-  private static ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
+  private static HashMap<Location, Store> StoreMap = new HashMap<Location, Store>();
 
   // Store information
-  private int items = 5000;
-  private final static int MAX_STOCK = 20000;
+  private int items = RESTOCK_COUNT;
+  private final static int MAX_STOCK = 50000;
   private final static int RESTOCK_COUNT = 20000;
   private Location key; // Location of the store
   private int sales = 0;
-  public static volatile int ttlSales = 0;
+  public static int ttlSales = 0;
 
   private void restockShelf() {
     StoreMap.get(key).items+=RESTOCK_COUNT;
@@ -33,7 +33,7 @@ public class Store extends Thread {
     StoreMap.get(key).sales++;
   }
 
-  public static synchronized Store getStore(final Location key) {
+  public static Store getStore(final Location key) {
     if(StoreMap.get(key) == null) {
       StoreMap.put(key, new Store(key));
     }
@@ -50,7 +50,7 @@ public class Store extends Thread {
     return StoreMap.get(key).sales;
   }
 
-  private synchronized void updateStock() {
+  private void updateStock() {
     GUI.itemStockGUI.forEach((k, v) -> {
       if(k == key) {
         v.itemStoreStockTextField.setText(String.format("%d items in stock", items));
@@ -63,7 +63,7 @@ public class Store extends Thread {
     while(!Main.customerList.isEmpty()) {
       final long nowTimer = System.currentTimeMillis();
       // Restock every three seconds
-      if(nowTimer-restockTimer >= 3000) {
+      if(nowTimer-restockTimer >= 1500) {
         restockShelf();
         restockTimer = System.currentTimeMillis();
       }
