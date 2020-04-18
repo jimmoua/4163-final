@@ -69,7 +69,6 @@ public class Store extends Thread {
         restockTimer = System.currentTimeMillis();
       }
     }
-    ttlSales+=StoreMap.get(key).sales;
     System.out.printf("Store %s made %d sales.\n", key.toString(), StoreMap.get(key).sales);
   }
 }
