@@ -24,6 +24,5 @@ public class Main {
         e.printStackTrace();
       }
     }
-    System.out.printf("Total sales made: %d\n", Store.ttlSales);
   }
 }

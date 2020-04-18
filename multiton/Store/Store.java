@@ -15,7 +15,6 @@ public class Store extends Thread {
   private final static int RESTOCK_COUNT = 20000;
   private Location key; // Location of the store
   private int sales = 0;
-  public static int ttlSales = 0;
 
   private void restockShelf() {
     StoreMap.get(key).items+=RESTOCK_COUNT;
@@ -29,7 +28,6 @@ public class Store extends Thread {
 
   public void sellItems(final int itemCount) {
     StoreMap.get(key).items-=itemCount;
-    ttlSales++;
     updateStock();
     StoreMap.get(key).sales++;
   }
