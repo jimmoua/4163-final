@@ -5,7 +5,18 @@ import java.util.HashMap;
 
 import multiton.Main;
 
-public class Store extends Thread {
+public class Store implements Runnable {
+
+  private Store(final Location key) {
+    System.out.printf("A store in %s has been built!\n", key.toString());
+    MAX_STOCK = 50000;
+    RESTOCK_COUNT = 20000;
+    items = RESTOCK_COUNT;
+    sales = 0;
+    this.key = key;
+    Thread storeThread = new Thread(this);
+    storeThread.start();
+  }
 
   // Static mapping
   private static HashMap<Location, Store> StoreMap = new HashMap<Location, Store>();
@@ -23,15 +34,6 @@ public class Store extends Thread {
     updateStock();
   }
 
-  private Store(final Location key) {
-    System.out.printf("A store in %s has been built!\n", key.toString());
-    MAX_STOCK = 50000;
-    RESTOCK_COUNT = 20000;
-    items = RESTOCK_COUNT;
-    sales = 0;
-    this.key = key;
-    start();
-  }
 
   public int getSales() {
     return StoreMap.get(key).sales;
@@ -62,6 +64,7 @@ public class Store extends Thread {
     return StoreMap.get(key);
   }
 
+  @Override
   public void run() {
     long restockTimer = System.currentTimeMillis();
     while(!Main.customerList.isEmpty()) {
