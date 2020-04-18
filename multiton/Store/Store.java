@@ -29,6 +29,7 @@ public class Store extends Thread {
 
   public void sellItems(final int itemCount) {
     StoreMap.get(key).items-=itemCount;
+    ttlSales++;
     updateStock();
     StoreMap.get(key).sales++;
   }
@@ -63,7 +64,7 @@ public class Store extends Thread {
     while(!Main.customerList.isEmpty()) {
       final long nowTimer = System.currentTimeMillis();
       // Restock every three seconds
-      if(nowTimer-restockTimer >= 1500) {
+      if(nowTimer-restockTimer >= 1000) {
         restockShelf();
         restockTimer = System.currentTimeMillis();
       }

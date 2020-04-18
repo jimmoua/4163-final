@@ -17,6 +17,7 @@ public class Customer {
     for(Location i : Location.values()) {
       // Randomly choose item quantity to buy.
       final int itemsToPurchase = (int) (Math.random() * 101 + 50);
+      // final int itemsToPurchase = 1;
       if(Store.getStore(i).getItemStock() >= itemsToPurchase) {
         final int numGen = (int) (Math.random() * 5 + 1);
         // Purchase something if numGen != 1
@@ -24,8 +25,7 @@ public class Customer {
           purchased++;
           ttlPurchased++;
           Store.getStore(i).sellItems(itemsToPurchase);
-          System.out.printf("Purchase count: %d\n", purchased);
-          if(purchased >= 4) {
+          if(purchased >= 1) {
             GUI.getTField().setText(String.valueOf(Main.customerList.size()-1));
             Main.customerList.remove(this);
           }

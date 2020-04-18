@@ -1,13 +1,15 @@
 package multiton;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import multiton.Store.*;
 
 public class Main {
-  public static ArrayList<Customer> customerList = new ArrayList<Customer>();
-  // public static CopyOnWriteArrayList<Customer> customerList = new CopyOnWriteArrayList<Customer>();
+  // public static LinkedList<Customer> customerList = new LinkedList<Customer>();
+  // public static ArrayList<Customer> customerList = new ArrayList<Customer>();
+  public static CopyOnWriteArrayList<Customer> customerList = new CopyOnWriteArrayList<Customer>();
   public static volatile int numCustomers = 0;
 
   public static void main(String[] args) {
@@ -21,7 +23,7 @@ public class Main {
         i.goShopping();
       }
       try {
-        Thread.sleep(1500);
+        Thread.sleep(700);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
