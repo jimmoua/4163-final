@@ -1,14 +1,10 @@
 package multiton;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import multiton.Store.*;
 
 public class Main {
-  // public static LinkedList<Customer> customerList = new LinkedList<Customer>();
-  // public static ArrayList<Customer> customerList = new ArrayList<Customer>();
   public static CopyOnWriteArrayList<Customer> customerList = new CopyOnWriteArrayList<Customer>();
   public static volatile int numCustomers = 0;
 
