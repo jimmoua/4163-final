@@ -12,7 +12,7 @@ public class Store extends Thread {
   // Store information
   private int items = 5000;
   private final static int MAX_STOCK = 20000;
-  private final static int RESTOCK_COUNT = 5000;
+  private final static int RESTOCK_COUNT = 20000;
   private Location key; // Location of the store
   private int sales = 0;
   public static volatile int ttlSales = 0;
@@ -60,7 +60,7 @@ public class Store extends Thread {
 
   public void run() {
     long restockTimer = System.currentTimeMillis();
-    while(!Main.getCustomerList().isEmpty()) {
+    while(!Main.customerList.isEmpty()) {
       final long nowTimer = System.currentTimeMillis();
       // Restock every three seconds
       if(nowTimer-restockTimer >= 3000) {
