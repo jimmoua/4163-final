@@ -20,7 +20,7 @@ public class Main {
       while(iter.hasNext()) {
         Customer c = iter.next();
         c.goShopping();
-        if(c.didPurchaseSomething()) {
+        if(c.shouldStopShopping()) {
           iter.remove();
         }
       }

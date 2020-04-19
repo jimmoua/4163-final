@@ -8,13 +8,13 @@ import multiton.Store.Store;
 
 public class Customer {
 
-  private boolean purchasedSomething;
-  public boolean didPurchaseSomething() {
-    return purchasedSomething;
+  private int purchasedCount;
+  public boolean shouldStopShopping() {
+    return purchasedCount > 5;
   }
 
   public Customer() {
-    purchasedSomething = false;
+    purchasedCount = 0;
   }
 
   public void goShopping() {
@@ -28,7 +28,7 @@ public class Customer {
         if(numGen != 1) {
           Store.getStore(i).sellItems(itemsToPurchase);
           GUI.getTField().setText(String.valueOf(Main.customerList.size()-1));
-          purchasedSomething = true;
+          purchasedCount++;
         }
         return;
       }
