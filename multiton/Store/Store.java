@@ -6,8 +6,6 @@ import multiton.Main;
 
 import java.lang.Math;
 
-import multiton.Main;
-
 public class Store implements Runnable {
 
   private Store(final Location key) {
