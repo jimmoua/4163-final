@@ -1,6 +1,6 @@
 package multiton.Store;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 
 import multiton.Main;
 
@@ -20,16 +20,16 @@ public class Store implements Runnable {
   }
 
   // Static mapping
-  private static ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
+  private static HashMap<Location, Store> StoreMap = new HashMap<Location, Store>();
 
   // Store information
-  private int items;
+  private volatile int items;
   private int maxStock;
   private int restockCount;
   private Location key; // Location of the store
-  private int sales;
+  private volatile int sales;
 
-  private void restockShelf() {
+  private synchronized void restockShelf() {
     items+=restockCount;
     if(items > maxStock) {
       items = maxStock;
@@ -42,11 +42,11 @@ public class Store implements Runnable {
     GUI.itemStockGUI.get(key).itemStoreStockTextField.setText(String.format("%d items in stock", items));
   }
 
-  public int getItemStock() {
+  public synchronized int getItemStock() {
     return items;
   }
 
-  public boolean sellItems(final int itemCount) {
+  public synchronized boolean sellItems(final int itemCount) {
     if(items < itemCount) return false;
     items-=itemCount;
     updateStockGUI();
