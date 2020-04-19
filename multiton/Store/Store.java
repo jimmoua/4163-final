@@ -1,6 +1,9 @@
 package multiton.Store;
 
 import java.util.concurrent.ConcurrentHashMap;
+
+import multiton.Main;
+
 import java.lang.Math;
 
 public class Store implements Runnable {
@@ -66,7 +69,7 @@ public class Store implements Runnable {
   @Override
   public void run() {
     long restockTimer = System.currentTimeMillis();
-    while(true) {
+    while(!Main.customerList.isEmpty()) {
       final long nowTimer = System.currentTimeMillis();
       // Restock every three seconds
       if(nowTimer-restockTimer >= 1000) {
@@ -74,5 +77,6 @@ public class Store implements Runnable {
         restockTimer = System.currentTimeMillis();
       }
     }
+    System.out.printf("Store %s made %d sales.\n", key.toString(), sales);
   }
 }
