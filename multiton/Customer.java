@@ -2,18 +2,21 @@ package multiton;
 
 import java.lang.Math;
 
+import multiton.Store.GUI;
 import multiton.Store.Location;
 import multiton.Store.Store;
 
-public class Customer {
+public class Customer implements Runnable {
 
   private int purchasedCount;
   public boolean shouldStopShopping() {
-    return purchasedCount > 5;
+    return purchasedCount >= 5;
   }
 
   public Customer() {
     purchasedCount = 0;
+    Thread customerThread = new Thread(this);
+    customerThread.start();
   }
 
   public void goShopping() {
@@ -31,6 +34,20 @@ public class Customer {
         return;
       }
     }
+  }
+
+  @Override
+  public void run() {
+    while(!shouldStopShopping()) {
+      goShopping();
+      try {
+        Thread.sleep(700);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    Main.customerList.remove(this);
+    GUI.getTField().setText(String.valueOf(Main.customerList.size()));
   }
 
 }
