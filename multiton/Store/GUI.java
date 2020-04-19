@@ -69,7 +69,7 @@ public class GUI extends JFrame {
     dataPanel.add(numCustomersTextField, getConstraints(1, 3, GridBagConstraints.LINE_START));
 
     for(Location i : Location.values()) {
-      itemStockGUI.put(i, new Pair(new JLabel(i.toString()), new JTextField("NULL")));
+      itemStockGUI.put(i, new Pair(new JLabel(i.toString()), new JTextField("---")));
     }
     itemStockGUI.forEach((k, v) -> {
       dataPanel.add(v.itemStoreLabel, getConstraints(k.ordinal(), 0, GridBagConstraints.LINE_START));
