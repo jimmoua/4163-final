@@ -1,7 +1,6 @@
 package multiton.Store;
 
-import java.util.concurrent.ConcurrentHashMap;
-
+import java.util.HashMap;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -35,7 +34,7 @@ class Pair {
 public class GUI extends JFrame {
   public final static Dimension dim = new Dimension(150, 20);
   private static final long serialVersionUID = 1L;
-  public static ConcurrentHashMap<Location, Pair> itemStockGUI = new ConcurrentHashMap<Location, Pair>();
+  public static HashMap<Location, Pair> itemStockGUI = new HashMap<Location, Pair>();
   private JButton simulateButton;
   private static JTextField numCustomersTextField;
   public static JTextField getTField() {
