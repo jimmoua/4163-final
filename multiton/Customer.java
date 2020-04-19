@@ -2,7 +2,6 @@ package multiton;
 
 import java.lang.Math;
 
-import multiton.Store.GUI;
 import multiton.Store.Location;
 import multiton.Store.Store;
 
