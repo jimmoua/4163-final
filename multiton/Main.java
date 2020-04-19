@@ -16,6 +16,5 @@ public class Main {
       customerList.add(new Customer());
     }
     while(!customerList.isEmpty());
-    System.out.printf("Total sales: %d\n", Store.ttl);
   }
 }

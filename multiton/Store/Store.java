@@ -6,9 +6,9 @@ import multiton.Main;
 
 import java.lang.Math;
 
-public class Store implements Runnable {
+import multiton.Main;
 
-  public static volatile int ttl = 0;
+public class Store implements Runnable {
 
   private Store(final Location key) {
     System.out.printf("A store in %s has been built!\n", key.toString());
@@ -22,12 +22,12 @@ public class Store implements Runnable {
   }
 
   // Static mapping
-  private static ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
+  private static volatile ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
 
   // Store information
   private volatile int items;
   private int maxStock;
-  private int restockCount;;
+  private int restockCount;
   private Location key; // Location of the store
   private int sales;
 
@@ -56,7 +56,6 @@ public class Store implements Runnable {
     items-=itemCount;
     updateStockGUI();
     sales++;
-    ttl++;
   }
 
   public static synchronized Store getStore(final Location key) {
