@@ -38,7 +38,7 @@ public class Store implements Runnable {
   }
 
 
-  private void updateStockGUI() {
+  private synchronized void updateStockGUI() {
     GUI.itemStockGUI.get(key).itemStoreStockTextField.setText(String.format("%d items in stock", items));
   }
 
