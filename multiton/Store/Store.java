@@ -1,11 +1,11 @@
 package multiton.Store;
 
-// import java.util.HashMap;
 import java.util.HashMap;
 import java.lang.Math;
-import multiton.Main;
 
 public class Store implements Runnable {
+
+  public static int ttl = 0;
 
   private Store(final Location key) {
     System.out.printf("A store in %s has been built!\n", key.toString());
@@ -53,9 +53,10 @@ public class Store implements Runnable {
     items-=itemCount;
     updateStockGUI();
     sales++;
+    ttl++;
   }
 
-  public static synchronized Store getStore(final Location key) {
+  public static Store getStore(final Location key) {
     if(StoreMap.get(key) == null) {
       StoreMap.put(key, new Store(key));
     }
@@ -65,7 +66,7 @@ public class Store implements Runnable {
   @Override
   public void run() {
     long restockTimer = System.currentTimeMillis();
-    while(!Main.customerList.isEmpty()) {
+    while(true) {
       final long nowTimer = System.currentTimeMillis();
       // Restock every three seconds
       if(nowTimer-restockTimer >= 1000) {
@@ -73,6 +74,5 @@ public class Store implements Runnable {
         restockTimer = System.currentTimeMillis();
       }
     }
-    System.out.printf("Store %s made %d sales.\n", key.toString(), StoreMap.get(key).sales);
   }
 }
