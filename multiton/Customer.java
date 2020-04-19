@@ -29,8 +29,9 @@ public class Customer implements Runnable {
         final int numGen = (int) (Math.random() * 5 + 1);
         // If number isn't 1, purchase the amount specified above.
         if(numGen != 1) {
-          Store.getStore(i).sellItems(itemsToPurchase);
-          purchasedCount++;
+          if(Store.getStore(i).sellItems(itemsToPurchase)) {
+            purchasedCount++;
+          }
         }
         return;
       }

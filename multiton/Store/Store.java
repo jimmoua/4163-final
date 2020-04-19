@@ -46,10 +46,12 @@ public class Store implements Runnable {
     return items;
   }
 
-  public synchronized void sellItems(final int itemCount) {
+  public synchronized boolean sellItems(final int itemCount) {
+    if(items < itemCount) return false;
     items-=itemCount;
     updateStockGUI();
     sales++;
+    return true;
   }
 
   public static synchronized Store getStore(final Location key) {
@@ -64,7 +66,7 @@ public class Store implements Runnable {
     long restockTimer = System.currentTimeMillis();
     while(!Main.customerList.isEmpty()) {
       final long nowTimer = System.currentTimeMillis();
-      // Restock every three seconds
+      // Restock every second
       if(nowTimer-restockTimer >= 1000) {
         restockShelf();
         restockTimer = System.currentTimeMillis();
