@@ -51,7 +51,7 @@ public class Customer implements Runnable {
         e.printStackTrace();
       }
     }
-    GUI.getTField().setText(String.valueOf(Main.decNum()));
+    GUI.setTField(Main.decNum());
   }
 
 }

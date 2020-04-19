@@ -37,8 +37,8 @@ public class GUI extends JFrame {
   public static ConcurrentHashMap<Location, Pair> itemStockGUI = new ConcurrentHashMap<Location, Pair>();
   private JButton simulateButton;
   private static volatile JTextField numCustomersTextField;
-  public static synchronized JTextField getTField() {
-    return numCustomersTextField;
+  public static synchronized void setTField(int n) {
+    numCustomersTextField.setText(String.format("%d", n));
   }
 
   public GUI() {
@@ -97,7 +97,7 @@ public class GUI extends JFrame {
 
   private void simulateButtonClicked() {
     try {
-      Main.setNum(Integer.parseInt(getTField().getText()));
+      Main.setNum(Integer.parseInt(numCustomersTextField.getText()));
     } catch(NumberFormatException e) {
       JOptionPane.showMessageDialog(this, "Please enter integers only.");
       e.printStackTrace();
@@ -107,7 +107,7 @@ public class GUI extends JFrame {
       JOptionPane.showMessageDialog(this, "Please enter in positive integer.");
     }
     else {
-      getTField().setEditable(false);
+      numCustomersTextField.setEditable(false);
       simulateButton.setEnabled(false);
     }
   }
