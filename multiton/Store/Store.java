@@ -22,7 +22,7 @@ public class Store implements Runnable {
   private static ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
 
   // Store information
-  private int items;
+  private volatile int items;
   private int maxStock;
   private int restockCount;;
   private Location key; // Location of the store
