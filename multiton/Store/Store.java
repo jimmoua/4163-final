@@ -20,16 +20,16 @@ public class Store implements Runnable {
   }
 
   // Static mapping
-  private static volatile ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
+  private static ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
 
   // Store information
-  private volatile int items;
+  private int items;
   private int maxStock;
   private int restockCount;
   private Location key; // Location of the store
   private int sales;
 
-  private synchronized void restockShelf() {
+  private void restockShelf() {
     items+=restockCount;
     if(items > maxStock) {
       items = maxStock;
@@ -38,15 +38,15 @@ public class Store implements Runnable {
   }
 
 
-  private synchronized void updateStockGUI() {
+  private void updateStockGUI() {
     GUI.itemStockGUI.get(key).itemStoreStockTextField.setText(String.format("%d items in stock", items));
   }
 
-  public synchronized int getItemStock() {
+  public int getItemStock() {
     return items;
   }
 
-  public synchronized boolean sellItems(final int itemCount) {
+  public boolean sellItems(final int itemCount) {
     if(items < itemCount) return false;
     items-=itemCount;
     updateStockGUI();
