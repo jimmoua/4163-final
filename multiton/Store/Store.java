@@ -1,6 +1,6 @@
 package multiton.Store;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.lang.Math;
 
 public class Store implements Runnable {
@@ -19,7 +19,7 @@ public class Store implements Runnable {
   }
 
   // Static mapping
-  private static HashMap<Location, Store> StoreMap = new HashMap<Location, Store>();
+  private static ConcurrentHashMap<Location, Store> StoreMap = new ConcurrentHashMap<Location, Store>();
 
   // Store information
   private int items;
