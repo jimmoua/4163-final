@@ -21,6 +21,7 @@ public class Main {
         Customer c = iter.next();
         c.goShopping();
         if(c.shouldStopShopping()) {
+          GUI.getTField().setText(String.valueOf(Main.customerList.size()-1));
           iter.remove();
         }
       }

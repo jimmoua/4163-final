@@ -27,7 +27,6 @@ public class Customer {
         // If number isn't 1, purchase the amount specified above.
         if(numGen != 1) {
           Store.getStore(i).sellItems(itemsToPurchase);
-          GUI.getTField().setText(String.valueOf(Main.customerList.size()-1));
           purchasedCount++;
         }
         return;
