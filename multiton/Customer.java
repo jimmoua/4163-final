@@ -34,6 +34,10 @@ public class Customer implements Runnable {
         }
         return;
       }
+      else if(Store.getStore(i).getItemStock() < 0) {
+        System.out.println("Negative");
+        System.exit(1);
+      }
     }
   }
 
