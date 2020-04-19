@@ -15,7 +15,6 @@ public class Customer implements Runnable {
 
   public Customer() {
     purchasedCount = 0;
-    GUI.getTField().setText(String.valueOf(Main.customerList.size()));
     Thread customerThread = new Thread(this);
     customerThread.start();
   }
@@ -52,8 +51,7 @@ public class Customer implements Runnable {
         e.printStackTrace();
       }
     }
-    Main.customerList.remove(this);
-    GUI.getTField().setText(String.valueOf(Main.customerList.size()));
+    GUI.getTField().setText(String.valueOf(Main.decNum()));
   }
 
 }

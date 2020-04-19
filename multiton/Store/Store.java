@@ -64,7 +64,7 @@ public class Store implements Runnable {
   @Override
   public void run() {
     long restockTimer = System.currentTimeMillis();
-    while(!Main.customerList.isEmpty()) {
+    while(Main.getNum() > 0) {
       final long nowTimer = System.currentTimeMillis();
       // Restock every second
       if(nowTimer-restockTimer >= 1000) {
